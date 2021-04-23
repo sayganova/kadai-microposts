@@ -53,21 +53,21 @@ class User extends Authenticatable
     public function favorite($micropostId)
     {
         $exist = $this->is_favorite($micropostId);
-        $its_mine = $this->id == $micropostId;
-        if ($exist || $its_mine) {
+        if ($exist == true) {
             return false;
-        } else {
-            $this->favorites()->attach($micropostId);
-            return true;
         }
+            
+        $this->favorites()->attach($micropostId);
     }
     
     public function unfavorite($micropostId)
     {
         $exist = $this->is_favorite($micropostId);
+        if ($exist == false) {
+            return false;
+        }
 
-
-            $this->favorites()->detach($micropostId);
+        $this->favorites()->detach($micropostId);
 
     }
 
